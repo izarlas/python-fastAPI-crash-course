@@ -1,8 +1,22 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 
 app = FastAPI()
 
-@app.get('/')
-def index():
-    return {"name": "Nick"}
+students = [{
+    "id": 1,
+    "name": "Nick",
+    "age": 17,
+    "class": "A1"
+}]
 
+@app.get('/api/')
+def index():
+    return {"name": "/api"}
+
+@app.get('/api/students/')
+def find_students():
+    return students
+
+@app.get('/api/students/{id}')
+def find_student(id: int = Path(..., description="The student id", gt=0)):
+    return next((student for student in students if student["id"] == id), None)

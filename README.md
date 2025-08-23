@@ -29,4 +29,6 @@ uvicorn api:app --reload
 
 **The Swagger UI is accessible at** `http://localhost:8000/docs`
 
-- GET `/`
+- GET `/api/`
+- GET `/api/students/`
+- GET `/api/students/{id}`
