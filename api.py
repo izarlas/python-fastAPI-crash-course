@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Path
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -6,8 +7,12 @@ students = [{
     "id": 1,
     "name": "Nick",
     "age": 17,
-    "class": "A1"
 }]
+
+class Student(BaseModel):
+    id: int
+    name: str
+    age: int
 
 @app.get('/api/')
 def index():
@@ -36,3 +41,11 @@ def find_student_by_id_and_name(id: int, name: str):
             return student
 
     return {"Error": "Student not found"}
+
+@app.post('/api/student/')
+def create_student(student: Student):
+    if (student.id in students):
+        return {"Error": "Student already exists"}
+
+    students.append(student)
+    return students
