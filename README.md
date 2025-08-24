@@ -32,3 +32,5 @@ uvicorn api:app --reload
 - GET `/api/`
 - GET `/api/students/`
 - GET `/api/students/{id}`
+- GET `/api/student?name`
+- GET `/api/student/{id}?name`

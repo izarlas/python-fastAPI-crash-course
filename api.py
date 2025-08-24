@@ -28,3 +28,11 @@ def find_student_by_name(name: str):
             return student
 
     return {"Error": "Student not found"}
+
+@app.get('/api/student/{id}')
+def find_student_by_id_and_name(id: int, name: str):
+    for student in students:
+        if student["id"] == id and student["name"] == name:
+            return student
+
+    return {"Error": "Student not found"}
