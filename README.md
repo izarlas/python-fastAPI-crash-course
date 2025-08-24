@@ -36,3 +36,9 @@ uvicorn api:app --reload
 - GET `/api/student?id={id}&name={name}`
 - POST `/api/student/`
 - PUT `/api/student/{id}`
+- DELETE `/api/student/{id}`
+
+#### TODO
+
+- DB Integration
+- Write Tests

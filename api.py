@@ -52,7 +52,7 @@ def find_student_by_id_and_name(id: int, name: str):
 @app.post('/api/student/', response_model=list[Student])
 def create_student(student: Student):
     if student.id in students:
-        return {"Error": "Student already exists"}
+        raise HTTPException(status_code=409, detail="Student already exists")
 
     students.append(student)
     return students
@@ -64,10 +64,19 @@ def update_student_by_id(id: int, update_student: UpdateStudent):
     if student_to_update is None:
         raise HTTPException(status_code = 404, detail = "Student not found")
 
-    
     if update_student.name is not None:
         student_to_update.name = update_student.name
     if update_student.age is not None:
         student_to_update.age = update_student.age
         
+    return students
+
+@app.delete('/api/student/{id}', response_model=list[Student])
+def delete_student_by_id(id: int):
+    student = next((student for student in students if student.id == id), None)
+
+    if student is None:
+        raise HTTPException(status_code = 404, detail = "Student not found")
+
+    students.remove(student)
     return students
